@@ -14,7 +14,7 @@ and [Brotli](https://github.com/google/ngx_brotli/)
 
 2. Clone this repo
 
-3. Build an image from Dockerfile: `docker build -t="nginx:1.16" -f="nginx-1.16/Dockerfile"`)
+3. Build an image from Dockerfile: `docker build -t="nginx:1.16" -f="nginx-1.16/Dockerfile" .`)
 
 
 ### Usage
