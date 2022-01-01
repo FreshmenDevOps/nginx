@@ -1,12 +1,11 @@
-## nginx-1.16 + Google Pagespeed + Brotli
+## nginx + Google Pagespeed + Brotli
 
 [NGINX](http://nginx.org/) bundle with support for Google Pagespeed [ngx_pagespeed](https://github.com/apache/incubator-pagespeed-ngx) \
 and [Brotli](https://github.com/google/ngx_brotli/)
 
 ### Base Docker Image
 
-* [centos7](http://dockerfile.github.io/#/centos)
-
+* [debian](https://hub.docker.com/_/debian/)
 
 ### Installation
 
@@ -14,7 +13,7 @@ and [Brotli](https://github.com/google/ngx_brotli/)
 
 2. Clone this repo
 
-3. Build an image from Dockerfile: `docker build -t="nginx:1.16" -f="nginx-1.16/Dockerfile" .`)
+3. Build an image from Dockerfile: `docker build -t="nginx:brotli-pgspd" -f="nginx/Dockerfile" .`)
 
 
 ### Usage
@@ -23,7 +22,7 @@ and [Brotli](https://github.com/google/ngx_brotli/)
 
 #### Attach persistent/shared directories
 
-    docker run -d -p 80:8180 -p 443:8543 -v <nginx-dir>:/etc/nginx:ro -v <log-dir>:/var/log/nginx -v <html-dir>:/srv/www nginx:1.16
+    docker run -d -p 80:8180 -p 443:8543 -v <nginx-dir>:/etc/nginx:ro -v <log-dir>:/var/log/nginx -v <html-dir>:/srv/www nginx:latest
 
 Open `http://<host>:8180` to verify.
 
