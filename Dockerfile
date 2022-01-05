@@ -66,10 +66,12 @@ RUN cd /tmp/incubator-pagespeed-ngx-${NGX_PAGESPEED_VERSION}-stable/ && \
 RUN cd /tmp && \
   curl -L http://nginx.org/download/nginx-${NGINX_VERSION}.tar.gz | tar -zx && \
   cd /tmp/nginx-${NGINX_VERSION} && \
-  ./configure \
+  ./configure --prefix=/var/lib/nginx \
   --add-module=/tmp/ngx_brotli-${NGX_BROTLI_VERSION} \
   --add-module=/tmp/incubator-pagespeed-ngx-${NGX_PAGESPEED_VERSION}-stable \
   --conf-path=/etc/nginx/nginx.conf \
+  --modules-path=/usr/lib/nginx \
+  --sbin-path=/usr/sbin \
   --group=nginx \
   --user=nginx \
   --with-cc-opt='-O3 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector-strong --param=ssp-buffer-size=4 -grecord-gcc-switches -m64 -mtune=generic' \
@@ -113,13 +115,11 @@ RUN cd /tmp && \
   --with-threads && \
   make -j4 install --silent
 
-VOLUME [
-  "/etc/nginx/",
-  "/var/tmp/nginx",
-  "/var/cache/nginx",
-  "/var/log/nginx",
-  "/srv/www"
-]
+VOLUME ["/etc/nginx/", \
+  "/var/tmp/nginx", \
+  "/var/lib/nginx", \
+  "/var/log/nginx", \
+  "/srv/www" ]
 
 WORKDIR /etc/nginx
 
