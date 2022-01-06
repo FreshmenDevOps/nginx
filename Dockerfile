@@ -8,33 +8,16 @@ RUN apt-get update -y && \
   adduser --system --disabled-login --ingroup nginx --no-create-home --home /nonexistent --gecos "nginx user" --shell /bin/false --uid 101 nginx
 
 RUN apt-get install -y \
-	apt-utils \
-	g++ \
-	gcc \
 	curl \
-	make \
 	unzip \
 	libatomic-ops-dev \
-	gperf \
-	openssl \
-	libuuid1 \
-	apt-utils \
-	pkg-config \
-	icu-devtools \
 	build-essential \
 	ca-certificates \
 	uuid-dev \
 	zlib1g-dev \
-	libicu-dev \
 	libssl-dev \
 	libpcre3 \
-	libpcre3-dev \
-	libmaxminddb-dev \
-	libpng-dev \
-	libaprutil1-dev \
-	linux-headers-amd64 \
-	libjpeg62-turbo-dev \
-	libcurl4-openssl-dev
+	libpcre3-dev
 
 # stable branch
 ENV NGINX_VERSION 1.20.2
@@ -114,6 +97,18 @@ RUN cd /tmp && \
   --with-stream_ssl_module \
   --with-threads && \
   make -j4 install --silent
+
+RUN apt-get remove -y --purge build-essential \
+  curl \
+  libatomic-ops-dev \
+  libssl-dev \
+	libpcre3-dev \
+  uuid-dev \
+  unzip \
+	zlib1g-dev && \
+  apt-get remove -y --autoremove && \
+  apt-get clean && \
+  rm -rf /var/lib/apt /var/cache/apt
 
 VOLUME ["/etc/nginx/", \
   "/var/tmp/nginx", \
