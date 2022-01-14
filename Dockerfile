@@ -110,6 +110,9 @@ RUN apt-get remove -y --purge build-essential \
   apt-get clean && \
   rm -rf /var/lib/apt /var/cache/apt
 
+COPY entrypoint.sh /usr/local/bin/entrypoint.sh
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
+
 VOLUME ["/etc/nginx/", \
   "/var/tmp/nginx", \
   "/var/lib/nginx", \
